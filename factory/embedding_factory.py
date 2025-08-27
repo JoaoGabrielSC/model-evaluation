@@ -18,29 +18,7 @@ class EmbeddingFactory:
         ),
         "clip": HFModelConfig(
             CLIPModel, CLIPProcessor, "openai/clip-vit-base-patch32", 512
-        ),
-        "dino": HFModelConfig(ViTModel, ViTImageProcessor, "facebook/dino-vits16", 384),
-        "deit": HFModelConfig(
-            ViTModel, ViTImageProcessor, "facebook/deit-base-patch16-224", 768
-        ),
-        "resnet50": TorchModelConfig(
-            lambda: models.resnet50(weights=models.ResNet50_Weights.DEFAULT), 2048
-        ),
-        "resnet18": TorchModelConfig(
-            lambda: models.resnet18(weights=models.ResNet18_Weights.DEFAULT), 512
-        ),
-        "effnet_b0": TorchModelConfig(
-            lambda: models.efficientnet_b0(
-                weights=models.EfficientNet_B0_Weights.DEFAULT
-            ),
-            1280,
-        ),
-        "mobilenet": TorchModelConfig(
-            lambda: models.mobilenet_v3_large(
-                weights=models.MobileNet_V3_Large_Weights.DEFAULT
-            ),
-            960,
-        ),
+        )
     }
 
     @staticmethod
