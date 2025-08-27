@@ -1,0 +1,11 @@
+psycopg2-binary
+torch
+torchvision
+transformers
+pillow
+tqdm
+scikit-learn
+matplotlib
+opencv-python
+numpy
+certifi
