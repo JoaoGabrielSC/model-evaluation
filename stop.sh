@@ -3,10 +3,17 @@
 # Script para parar todos os serviços do projeto
 echo "🛑 Parando serviços do Model Evaluation..."
 
+# Definir comando do compose (nova versão ou legada)
+if docker compose version &> /dev/null; then
+    DOCKER_COMPOSE="docker compose"
+else
+    DOCKER_COMPOSE="docker-compose"
+fi
+
 # Parar banco de dados
-if docker-compose ps | grep -q "Up"; then
+if $DOCKER_COMPOSE ps | grep -q "Up"; then
     echo "🐘 Parando banco de dados..."
-    docker-compose down
+    $DOCKER_COMPOSE down
     echo "✅ Banco de dados parado"
 else
     echo "ℹ️  Banco de dados já está parado"

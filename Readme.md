@@ -67,7 +67,43 @@ Se preferir configurar manualmente:
 - Docker e Docker Compose
 - Git
 
-### 2. Configuração do Banco de Dados
+### 2. Por que Docker com pgvector?
+
+Este projeto utiliza **PostgreSQL com a extensão pgvector** por várias razões importantes:
+
+#### 🎯 **pgvector - Extensão Especializada em Vetores**
+
+- **Armazenamento nativo de embeddings**: pgvector é especificamente projetado para armazenar e consultar vetores de alta dimensionalidade
+- **Índices otimizados**: Suporte a índices HNSW (Hierarchical Navigable Small World) e IVFFlat para busca eficiente de vizinhos mais próximos
+- **Operadores de similaridade**: Implementa nativamente operadores para distância euclidiana (`<->`), similaridade cosseno (`<=>`) e produto interno (`<#>`)
+- **Performance superior**: Muito mais rápido que soluções baseadas em arrays tradicionais do PostgreSQL
+
+#### 🐳 **Vantagens do Docker**
+
+- **Isolamento**: Ambiente consistente independente do sistema operacional
+- **pgvector pré-instalado**: A imagem `pgvector/pgvector:pg16` já vem com a extensão configurada
+- **Facilidade de setup**: Um comando (`docker-compose up -d`) configura todo o ambiente
+- **Reprodutibilidade**: Garantia de que o ambiente funciona igual em qualquer máquina
+- **Cleanup simples**: Fácil de remover sem afetar o sistema host
+
+#### 📊 **Comparação com Alternativas**
+
+| Solução | Complexidade Setup | Performance | Escalabilidade | Manutenção |
+|---------|-------------------|-------------|----------------|------------|
+| **PostgreSQL + pgvector** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| SQLite + embeddings | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | ⭐⭐⭐ |
+| Chroma/Pinecone | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ |
+| Weaviate/Qdrant | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ |
+
+#### 🔍 **Casos de Uso Ideais**
+
+- **Pesquisa por similaridade** em grandes volumes de embeddings
+- **Sistemas de recomendação** baseados em similaridade vetorial
+- **Reconhecimento facial/de imagens** (como neste projeto)
+- **Busca semântica** em documentos
+- **Análise de sentimentos** e clustering de textos
+
+### 3. Configuração do Banco de Dados
 
 O projeto utiliza PostgreSQL com a extensão pgvector para armazenamento e busca de embeddings vetoriais.
 
@@ -75,9 +111,13 @@ O projeto utiliza PostgreSQL com a extensão pgvector para armazenamento e busca
 
 ```bash
 # Subir o banco de dados
+docker compose up -d
+# ou (versão legada)
 docker-compose up -d
 
 # Verificar se está rodando
+docker compose ps
+# ou (versão legada)
 docker-compose ps
 ```
 
@@ -93,7 +133,7 @@ sudo apt-get install postgresql postgresql-contrib  # Ubuntu
 
 # Criar banco e usuário
 createdb visaocomputacional
-createuser -s const
+createuser -s compvis
 ```
 
 ### 3. Configuração do Ambiente Python
@@ -126,8 +166,8 @@ Edite o arquivo `.env` conforme necessário:
 ```env
 # Configurações do banco de dados
 DB_NAME=visaocomputacional
-DB_USER=const
-DB_PASSWORD=const
+DB_USER=compvis
+DB_PASSWORD=compvis
 DB_HOST=localhost
 DB_PORT=5432
 

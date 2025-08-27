@@ -13,9 +13,17 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-if ! command -v docker-compose &> /dev/null; then
+# Verificar se Docker Compose está disponível
+if ! docker compose version &> /dev/null && ! command -v docker-compose &> /dev/null; then
     echo "❌ Docker Compose não encontrado. Por favor, instale o Docker Compose primeiro."
     exit 1
+fi
+
+# Definir comando do compose (nova versão ou legada)
+if docker compose version &> /dev/null; then
+    DOCKER_COMPOSE="docker compose"
+else
+    DOCKER_COMPOSE="docker-compose"
 fi
 
 # Verificar se Python está instalado
@@ -49,14 +57,14 @@ echo "✅ Dependências instaladas"
 
 # Subir banco de dados
 echo "🐘 Iniciando banco de dados PostgreSQL..."
-docker-compose up -d
+$DOCKER_COMPOSE up -d
 echo "✅ Banco de dados iniciado"
 
 # Aguardar banco ficar disponível
 echo "⏳ Aguardando banco de dados ficar disponível..."
 timeout=60
 counter=0
-while ! docker-compose exec -T postgres pg_isready -U const -d visaocomputacional > /dev/null 2>&1; do
+while ! $DOCKER_COMPOSE exec -T postgres pg_isready -U compvis -d visaocomputacional > /dev/null 2>&1; do
     sleep 2
     counter=$((counter + 2))
     if [ $counter -ge $timeout ]; then

@@ -1,19 +1,17 @@
-version: '3.8'
-
 services:
   postgres:
     image: pgvector/pgvector:pg16
     container_name: model_evaluation_db
     environment:
       POSTGRES_DB: visaocomputacional
-      POSTGRES_USER: const
-      POSTGRES_PASSWORD: const
+      POSTGRES_USER: compvis
+      POSTGRES_PASSWORD: compvis
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U const -d visaocomputacional"]
+      test: ["CMD-SHELL", "pg_isready -U compvis -d visaocomputacional"]
       interval: 30s
       timeout: 10s
       retries: 5
