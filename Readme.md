@@ -2,6 +2,8 @@
 
 Este projeto implementa um sistema completo para avaliação e comparação de diferentes modelos de visão computacional para reconhecimento facial usando embeddings vetoriais armazenados em PostgreSQL com extensão pgvector.
 
+> **📊 Nota sobre Resultados**: Os resultados e métricas apresentados neste projeto foram obtidos utilizando apenas os modelos **Vision Transformer (VIT)** e **CLIP**. Embora o sistema suporte outros modelos (ResNet, EfficientNet, MobileNet, etc.), as análises e conclusões são baseadas especificamente nos experimentos com VIT e CLIP.
+
 ## 🚀 Quick Start
 
 ```bash
