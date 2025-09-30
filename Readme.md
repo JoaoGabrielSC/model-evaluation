@@ -4,6 +4,27 @@ Este projeto implementa um sistema completo para avaliação e comparação de d
 
 > **📊 Nota sobre Resultados**: Os resultados e métricas apresentados neste projeto foram obtidos utilizando apenas os modelos **Vision Transformer (VIT)** e **CLIP**. Embora o sistema suporte outros modelos (ResNet, EfficientNet, MobileNet, etc.), as análises e conclusões são baseadas especificamente nos experimentos com VIT e CLIP.
 
+
+## 📈 Métricas e Resultados
+
+O melhor modelo foi o modelo CLIP da OPENAI
+<img width="1126" height="381" alt="image" src="https://github.com/user-attachments/assets/50349909-2291-4d78-90d5-f8294f00c42c" />
+
+
+
+O sistema calcula automaticamente:
+
+- **Acurácia**: Percentual de predições corretas
+- **Precisão**: Proporção de verdadeiros positivos
+- **F1-Score**: Média harmônica entre precisão e recall
+- **Matriz de Confusão**: Visualização detalhada dos resultados
+
+Os resultados são salvos em:
+
+- `results/[timestamp]/`: Contém logs detalhados
+- `results/[timestamp]/summary/`: Gráficos e visualizações
+
+
 ## 🚀 Quick Start
 
 ```bash
@@ -260,20 +281,6 @@ make help
 make one
 python search_one.py
 ```
-
-## 📈 Métricas e Resultados
-
-O sistema calcula automaticamente:
-
-- **Acurácia**: Percentual de predições corretas
-- **Precisão**: Proporção de verdadeiros positivos
-- **F1-Score**: Média harmônica entre precisão e recall
-- **Matriz de Confusão**: Visualização detalhada dos resultados
-
-Os resultados são salvos em:
-
-- `results/[timestamp]/`: Contém logs detalhados
-- `results/[timestamp]/summary/`: Gráficos e visualizações
 
 ## 🛠️ Estrutura do Projeto
 
